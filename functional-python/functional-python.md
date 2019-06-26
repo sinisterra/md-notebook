@@ -90,3 +90,80 @@
 - type system: rely on Python's dynamic type system
 
 ## Chapter 3: Functions, Iterators and Generators
+
+Introduction to several Python functions that are important for a functional perspective.
+
+* Pure functions
+* Functions as objects
+* use of Python strings
+* tuples & namedtuples
+* iterable collections
+
+Generator examples for:
+
+* conversions
+* restructuring
+* complex calculations
+
+### Writing pure functions
+
+```python
+def m(n: int) -> int:
+    return 2 ** n - 1 
+```
+
+* The return value depends only on the input.
+* No mutations
+
+Balancing python's statefulness with functional  programming is possible.
+
+Code should avoid using global objects, such as files or database connections.
+
+Use `with` keyword when working with files in python.
+
+### Functions as first-class objects
+
+* functions can be assigned to variables
+* can be used as arguments
+* can be returned by other functions
+* These techniques can be used to create higher-order functions
+
+#### Strategy design patterns
+
+* Depends on other objects to provide parts on an algorithm.
+* On `__init__` , the object takes a `Callable` (a function)
+
+An example:
+
+```python
+from typing import Callable
+
+# A nice example of a Strategy design pattern
+class Mersenne1:
+	def __init__(self, algorithm: Callable[[int], [int]]) -> None:
+        self.pow2 = algorithm
+    def __call__(self, arg: int) -> int:
+        # here it uses the callable passed on __init__
+        return self.pow2(arg) - 1
+```
+
+Then, define some algorithms to pass to the strategy:
+
+```python
+def shifty(b: int) -> int:
+    return 1 << b
+
+def faster(b: int) -> int:
+    if b == 0: return 1
+    if b % 2 == 1: return 2 * faster(b - 1)
+    t = faster(b // 2)
+    return t * t
+```
+
+Create your strategies:
+
+```python
+m1s = Mersenn1(shifty)
+m1f = Mersenne1(faster)
+```
+
