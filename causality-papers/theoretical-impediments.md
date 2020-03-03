@@ -11,9 +11,9 @@ Mental representations of the environment are important, because they enable que
 
 ## The three layer causal hierarchy
 
-3. Counterfactuals (Why?)
-4. Interventions (What if I do?)
-5. Association (What?)
+1. Counterfactuals (Why?)
+2. Interventions (What if I do?)
+3. Association (What?)
 
 Association relies on conditional probabilities.
 Intervention: Do randomized clinical trials, Causal Bayesian Networks
@@ -29,17 +29,20 @@ Cause-effect questions did not have the benefit of mathematical analysis until S
 
 Structural Causal Models are defined by three main elements:
 
-- graphical models: these describe the assumptions, what is known.
-- counterfactual and interventional logic: describe what we want to know.
-- structural equations: interaction between what is known and what we want to know.
+- **graphical models**: these describe the assumptions, what is known.
+- **counterfactual and interventional logic**: describe what we want to know.
+- **structural equations**: interaction between what is known and what we want to know.
 
-Elements:
-query -> the question to be answered
-estimand -> formula based on the assumptions, capable of answering the query
-estimation -> use the estimand and the data to provide an answer
-graphical model -> assumptions
-fit indices -> how well does the graphical model describe the data
-data -> observations
+**Elements**
+
+- **query**: the question to be answered
+- **estimand**: formula based on the assumptions, capable of answering the query
+- **estimation**: use the estimand and the data to provide an answer
+- **graphical model**: assumptions
+- **fit indices**: how well does the graphical model describe the data
+- **data**: observations
+
+**Process**
 
 1. Use the query the graphical model to produce an estimand (function)
 2. Use the estimand and the data to produce an estimation (value)
