@@ -163,7 +163,82 @@ def faster(b: int) -> int:
 Create your strategies:
 
 ```python
-m1s = Mersenn1(shifty)
+m1s = Mersenne1(shifty)
 m1f = Mersenne1(faster)
+```
+
+### Using Strings
+
+* Python strings are immutable
+* Uses postfix syntax, rather than prefix (functional prefers prefix)
+* Prefix functions are useful when defining specific transformations
+
+### Using tuples and namedtuples
+
+* Python tuples are immutable objects
+* namedtuples: names can be used to access objects that belong to a tuple instead of indices
+
+#### Defining named tuples with class objects
+
+```python
+from collections import namedtuple
+# first argument: the name of the tuple
+# second argument: an iterable, indicating each of the names of the properties the named tuple will contain
+Color = namedtuple("Color", ("red", "green", "blue", "name"))
+
+```
+
+#### Defining named tuples with classes
+
+```python
+from typing import NamedTuple
+class Color(NamedTuple):
+    red: int
+    green: int
+    blue: int
+    name: str
+```
+
+This approach can offer type hints for tuple positions, and collaborates well with tools such as _mypy_.
+
+### Using generator expressions
+
+Generator expressions and list comprehensions in Python can be easily confused among themselves, but are not equivalent.
+
+Generator expressions have some differences:
+
+* sequence-like
+* can only be used once, otherwise they appear empty
+* `yield from` is used to consume values from a recursive call to the caller. If `return` were to be used, the generator itself would be returned.
+
+### Exploring the limitations for generators
+
+* They can only be used once. This behaviour can be overriden with `itertools.tee()`. An example:
+
+```python
+import itertools
+from typing import Iterable, Any
+def limits(iterable: Iterable[Any]) -> Any:
+    max_tee, min_tee = itertools.tee(iterable, 2)
+    return max(max_tee), min(min_tee)
+```
+
+When doing reductions, one-pass-only limitations have to be considered.
+
+### Combining generator expressions
+
+* With a composite function:
+
+`g_f_x = (g(f(x)) for x in range()) `
+
+* Substitution
+
+`g_f_x = (g(y) for y in (f(x) for x in range()))`
+
+* Easier substitution
+
+```python
+f_x = (f(x) for x in range())
+g_f_x = (g(y) for y in f_x)
 ```
 
